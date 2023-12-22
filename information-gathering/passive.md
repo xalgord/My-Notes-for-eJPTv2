@@ -79,3 +79,7 @@ Example:
 [*] Enumerating SRV Records
 [-] No SRV Records Found for hackersploit.org
 ```
+
+{% hint style="info" %}
+**Important Note**: Cloudflare does not hide MX records by default. MX records, responsible for email routing, may expose the origin server's IP as you can see above.
+{% endhint %}
