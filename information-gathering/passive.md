@@ -32,6 +32,8 @@ Netcraft is a web-based tool that is widely used for footprinting and identifyin
 
 {% embed url="https://sitereport.netcraft.com/" %}
 
+***
+
 ## DNS Recon
 
 DNSRecon is a powerful DNS enumeration tool that is available in Kali Linux. This tool is used to gather information about a target domain by performing different types of DNS queries. DNSRecon can be used to find subdomains, gather information about DNS servers, zone transfers, and much more. It is a command-line tool that requires some technical knowledge of DNS and network protocols. DNSRecon can be a useful tool for penetration testers and security researchers to identify potential weaknesses in a target's DNS infrastructure.
@@ -83,3 +85,9 @@ Example:
 {% hint style="info" %}
 **Important Note**: Cloudflare does not hide MX records by default. MX records, responsible for email routing, may expose the origin server's IP as you can see above.
 {% endhint %}
+
+## DNS Dumpster
+
+DNS Dumpster is a web-based tool for DNS enumeration that allows users to search for DNS records related to a specific domain. This tool can be used to find subdomains, MX records, TXT records, and more. DNS Dumpster is different from DNSRecon in that it is a web-based tool that does not require the user to have technical knowledge of DNS and network protocols. Additionally, DNS Dumpster provides a graphical user interface (GUI) that makes it easy to use and understand. DNSRecon, on the other hand, is a command-line tool that requires some technical knowledge of DNS and network protocols to use effectively.
+
+{% embed url="https://dnsdumpster.com/" %}
