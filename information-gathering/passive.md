@@ -23,3 +23,11 @@ hackersploit.org mail is handled by 0 _dc-mx.2c2a3526b376.hackersploit.org.
 http://hackersploit.org [301 Moved Permanently] Country[UNITED STATES][US], HTTPServer[cloudflare], IP[104.21.44.180], RedirectLocation[https://hackersploit.org/], UncommonHeaders[report-to,nel,cf-ray,alt-svc]
 https://hackersploit.org/ [403 Forbidden] Country[UNITED STATES][US], HTML5, HTTPServer[cloudflare], IP[104.21.44.180], Title[403 Forbidden][Title element contains newline(s)!], UncommonHeaders[referrer-policy,x-turbo-charged-by,cf-cache-status,report-to,nel,cf-ray,alt-svc]
 ```
+
+* We can utilize the whois lookup tool to gather further information about the target.
+
+### Netcraft
+
+Netcraft is a web-based tool that is widely used for footprinting and identifying the technology behind a website. It provides detailed information on web technologies, DNS records, and server information. Netcraft is especially useful for identifying the hosting provider of a given website, as well as the operating system and web server software used.
+
+[https://sitereport.netcraft.com/](https://sitereport.netcraft.com/)
