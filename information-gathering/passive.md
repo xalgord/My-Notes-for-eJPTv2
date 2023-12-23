@@ -111,3 +111,11 @@ Usage:
 ## Google Hacking Database
 
 {% embed url="https://www.exploit-db.com/google-hacking-database" %}
+
+## theHarvester tool
+
+TheHarvester is a powerful open-source tool that is used for gathering information about a particular target domain. It is available in Kali Linux and can be used to discover email addresses, subdomains, employee names, open ports, and more. TheHarvester can be a useful tool for penetration testers and security researchers to identify potential weaknesses in a target's online presence. It supports various search engines such as Google, Bing, and Shodan, and can be run from the command line.
+
+After collecting email addresses for a particular organization we can look for Leaked Password Databased in the following website:
+
+{% embed url="https://haveibeenpwned.com/" %}
