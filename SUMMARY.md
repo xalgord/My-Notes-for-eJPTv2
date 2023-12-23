@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Information Gathering](README.md)
+* [INFORMATION GATHERING](README.md)
   * [Passive](information-gathering/passive.md)
   * [Active](information-gathering/active.md)
-* [Page](page.md)
+* [FOOTPRINTING AND SCANNING](footprinting-and-scanning.md)
