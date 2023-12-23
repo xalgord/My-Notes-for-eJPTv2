@@ -91,3 +91,23 @@ Example:
 DNS Dumpster is a web-based tool for DNS enumeration that allows users to search for DNS records related to a specific domain. This tool can be used to find subdomains, MX records, TXT records, and more. DNS Dumpster is different from DNSRecon in that it is a web-based tool that does not require the user to have technical knowledge of DNS and network protocols. Additionally, DNS Dumpster provides a graphical user interface (GUI) that makes it easy to use and understand. DNSRecon, on the other hand, is a command-line tool that requires some technical knowledge of DNS and network protocols to use effectively.
 
 {% embed url="https://dnsdumpster.com/" %}
+
+***
+
+## WAF detection using wafw00f
+
+Usage:
+
+```sh
+➜  ~ wafw00f hackersploit.org
+
+[*] Checking https://hackersploit.org
+[+] The site https://hackersploit.org is behind Cloudflare (Cloudflare Inc.) WAF.
+[~] Number of requests: 2
+```
+
+***
+
+## Google Hacking Database
+
+{% embed url="https://www.exploit-db.com/google-hacking-database" %}
