@@ -203,6 +203,18 @@ PORT      STATE SERVICE VERSION
 
 Now we got the accurate result for the target OS name and its version which is `14.04.1-Ubuntu`.
 
+To run a specific script instead of a group of scripts, we can use the following command:
+
+```sh
+root@attackdefense:~# nmap -sS -sV --script=mongodb-info -T4 -p- 192.109.247.3
+```
+
+we can also use the wildcard to run all the related scripts like this:
+
+```sh
+root@attackdefense:~# nmap -sS -sV --script=ftp* -T4 -p- 192.109.247.3
+```
+
 [^1]: 
 
 [^2]: target address
