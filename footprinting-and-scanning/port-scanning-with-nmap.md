@@ -149,6 +149,60 @@ We can also set the intensity for service version detection in Nmap using `--ver
 root@attackdefense:~# nmap -sS -sV --version-intensity 8 -O --osscan-guess -T4 -p- 192.109.247.3
 ```
 
+## Nmap Scripting Engine
+
+> Nmap Scripting Engine is a powerful feature that allows users to write and execute scripts to automate various network discovery and security tasks. The scripting engine provides a flexible and extensible framework that can be used to customize and extend the functionality of Nmap. With the scripting engine, users can create custom scripts to detect vulnerabilities, exploit weaknesses, and gather information about network hosts and services. The scripting engine also allows users to integrate Nmap with other tools and technologies, making it a valuable asset in any security professional's toolkit.
+
+We can find the nmap scripts in the following directory:
+
+```sh
+root@attackdefense:~# ls -al /usr/share/nmap/scripts/
+```
+
+We haven't got the accurate result for the operating system previously, so we will use script engine to do that job for us:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# nmap -sS -sV -sC -T4 -p- 192.109.247.3
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-26 10:58 UTC
+Nmap scan report for target-1 (192.109.247.3)
+Host is up (0.0000090s latency).
+Not shown: 65532 closed ports
+PORT      STATE SERVICE VERSION
+6421/tcp  open  mongodb MongoDB 2.6.10 2.6.10
+| mongodb-databases: 
+|   totalSize = 83886080.0
+|   databases
+|     1
+|       empty = true
+|       name = admin
+|       sizeOnDisk = 1.0
+|     0
+|       empty = false
+|       name = local
+|       sizeOnDisk = 83886080.0
+|_  ok = 1.0
+| mongodb-info: 
+|   MongoDB Build info
+|     ok = 1.0
+<strong>|     sysInfo = Linux lgw01-12 3.19.0-25-generic #26~14.04.1-Ubuntu SMP Fri Jul 24 21:16:20 UTC 2015 x86_64 BOOST_LIB_VERSION=1_58
+</strong>|     loaderFlags = -fPIC -pthread -Wl,-z,now -rdynamic
+|     versionArray
+|       1 = 6
+|       2 = 10
+|       3 = 0
+|       0 = 2
+|     gitVersion = nogitversion
+|     OpenSSLVersion = OpenSSL 1.0.2g  1 Mar 2016
+|     version = 2.6.10
+|     javascriptEngine = V8
+|     maxBsonObjectSize = 16777216
+|     allocator = tcmalloc
+    .
+    .
+    .
+</code></pre>
+
+Now we got the accurate result for the target OS name and its version which is `14.04.1-Ubuntu`.
+
 [^1]: 
 
 [^2]: target address
