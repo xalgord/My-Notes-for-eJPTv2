@@ -6,3 +6,4 @@
   * [Active](information-gathering/active.md)
 * [FOOTPRINTING AND SCANNING](footprinting-and-scanning/README.md)
   * [Host Discovery](footprinting-and-scanning/host-discovery.md)
+  * [Port Scanning with Nmap](footprinting-and-scanning/port-scanning-with-nmap.md)
