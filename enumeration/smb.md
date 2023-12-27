@@ -101,3 +101,100 @@ root@attackdefense:~# smbmap -u administrator -p "smbserver_771" -H 10.5.20.115 
 [+] Starting download: C$\flag.txt (32 bytes)
 [+] File output to: /root/10.5.20.115-C_flag.txt
 ```
+
+## SMB: Samba 1
+
+Here we can see SMB is running on both TCP ports:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# nmap -T4 192.251.29.3 -sV
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-27 15:46 UTC
+Nmap scan report for target-1 (192.251.29.3)
+Host is up (0.0000090s latency).
+Not shown: 998 closed ports
+PORT    STATE SERVICE     VERSION
+<strong>139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: RECONLABS)
+</strong><strong>445/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: RECONLABS)
+</strong>MAC Address: 02:42:C0:FB:1D:03 (Unknown)
+Service Info: Host: SAMBA-RECON
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.54 seconds
+</code></pre>
+
+But we forgot about UDP ports, they are also essential to enumerate, as you can see follow:
+
+```
+root@attackdefense:~# nmap -T4 192.251.29.3 -sU --top-port 25 -sV --open
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-27 15:51 UTC
+Nmap scan report for target-1 (192.251.29.3)
+Host is up (0.000055s latency).
+Not shown: 13 closed ports
+PORT      STATE         SERVICE      VERSION
+67/udp    open|filtered dhcps
+68/udp    open|filtered dhcpc
+69/udp    open|filtered tftp
+111/udp   open|filtered rpcbind
+123/udp   open|filtered ntp
+137/udp   open          netbios-ns   Samba nmbd netbios-ns (workgroup: RECONLABS)
+138/udp   open|filtered netbios-dgm
+445/udp   open|filtered microsoft-ds
+500/udp   open|filtered isakmp
+514/udp   open|filtered syslog
+631/udp   open|filtered ipp
+49154/udp open|filtered unknown
+MAC Address: 02:42:C0:FB:1D:03 (Unknown)
+Service Info: Host: SAMBA-RECON
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 107.22 seconds
+```
+
+We can also utilize nmap scripts to further enumerate the port:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# nmap 192.251.29.3 -p445 --script=smb-os-discovery
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-27 15:55 UTC
+Nmap scan report for target-1 (192.251.29.3)
+Host is up (0.000037s latency).
+
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+MAC Address: 02:42:C0:FB:1D:03 (Unknown)
+
+Host script results:
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: victim-1
+<strong>|   NetBIOS computer name: SAMBA-RECON\x00
+</strong>|   Domain name: \x00
+|   FQDN: victim-1
+|_  System time: 2023-12-27T15:55:53+00:00
+
+Nmap done: 1 IP address (1 host up) scanned in 0.41 seconds
+</code></pre>
+
+Here we can also see the NetBIOS computer name.
+
+We can also use metasploit-framework for the SMB enumeration, here is an example:
+
+```sh
+msf5 > use auxiliary/scanner/smb/smb_version 
+msf5 auxiliary(scanner/smb/smb_version) > show options
+
+Module options (auxiliary/scanner/smb/smb_version):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   RHOSTS                      yes       The target address range or CIDR identifier
+   SMBDomain  .                no        The Windows domain to use for authentication
+   SMBPass                     no        The password for the specified username
+   SMBUser                     no        The username to authenticate as
+   THREADS    1                yes       The number of concurrent threads
+
+msf5 auxiliary(scanner/smb/smb_version) > set rhosts 192.251.29.3
+rhosts => 192.251.29.3
+msf5 auxiliary(scanner/smb/smb_version) > run
+
+[*] 192.251.29.3:445      - Host could not be identified: Windows 6.1 (Samba 4.3.11-Ubuntu)
+[*] 192.251.29.3:445      - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
