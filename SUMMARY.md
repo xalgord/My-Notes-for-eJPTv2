@@ -12,3 +12,4 @@
   * [SMB](enumeration/smb.md)
   * [FTP](enumeration/ftp.md)
   * [SSH](enumeration/ssh.md)
+  * [HTTP](enumeration/http.md)
