@@ -198,3 +198,194 @@ msf5 auxiliary(scanner/smb/smb_version) > run
 [*] 192.251.29.3:445      - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
+
+## SMB: Samba 2
+
+We can connect SMB using rpcclient with a null session like this:
+
+```sh
+root@attackdefense:~# rpcclient -U "" -N 192.10.80.3
+rpcclient $> srvinfo
+        SAMBA-RECON    Wk Sv PrQ Unx NT SNT samba.recon.lab
+        platform_id     :       500
+        os version      :       6.1
+        server type     :       0x809a03
+```
+
+We can also utilize another tool which is `enum4linux`:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# enum4linux -o 192.10.80.3
+Starting enum4linux v0.8.9 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Thu Dec 28 05:23:21 2023
+
+ ========================== 
+|    Target Information    |
+ ========================== 
+Target ........... 192.10.80.3
+RID Range ........ 500-550,1000-1050
+Username ......... ''
+Password ......... ''
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+
+ =================================================== 
+|    Enumerating Workgroup/Domain on 192.10.80.3    |
+ =================================================== 
+[+] Got domain/workgroup name: RECONLABS
+
+ ==================================== 
+|    Session Check on 192.10.80.3    |
+ ==================================== 
+<strong>[+] Server 192.10.80.3 allows sessions using username '', password ''
+</strong>
+ ========================================== 
+|    Getting domain SID for 192.10.80.3    |
+ ========================================== 
+Domain Name: RECONLABS
+Domain Sid: (NULL SID)
+[+] Can't determine if host is part of domain or part of a workgroup
+
+ ===================================== 
+|    OS information on 192.10.80.3    |
+ ===================================== 
+Use of uninitialized value $os_info in concatenation (.) or string at ./enum4linux.pl line 464.
+[+] Got OS info for 192.10.80.3 from smbclient: 
+[+] Got OS info for 192.10.80.3 from srvinfo:
+        SAMBA-RECON    Wk Sv PrQ Unx NT SNT samba.recon.lab
+        platform_id     :       500
+<strong>        os version      :       6.1
+</strong>        server type     :       0x809a03
+enum4linux complete on Thu Dec 28 05:23:21 2023
+</code></pre>
+
+`-o` - Get OS information
+
+Another tool we can utilize is `smbclient`:
+
+```sh
+root@attackdefense:~# smbclient -L 192.10.80.3 -N
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        public          Disk      
+        john            Disk      
+        aisha           Disk      
+        emma            Disk      
+        everyone        Disk      
+        IPC$            IPC       IPC Service (samba.recon.lab)
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        RECONLABS            SAMBA-RECON
+```
+
+`-L`/`--list` - allows you to look at what services are available on a server.
+
+`-N` - null session
+
+To know if it supports SMB 2, we can use Metasploit:
+
+<pre class="language-sh"><code class="lang-sh">msf5 > use auxiliary/scanner/smb/smb2
+msf5 auxiliary(scanner/smb/smb2) > set RHOSTS 192.10.80.3
+RHOSTS => 192.10.80.3
+msf5 auxiliary(scanner/smb/smb2) > run
+
+<strong>[+] 192.10.80.3:445       - 192.10.80.3 supports <a data-footnote-ref href="#user-content-fn-1">SMB 2</a> [dialect 255.2] and has been online for 3707837 hours
+</strong>[*] 192.10.80.3:445       - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+</code></pre>
+
+Here we can now see that it supports SMB 2.
+
+We can also enumerate users using Nmap:
+
+```sh
+root@attackdefense:~# nmap 192.10.80.3 -p 445 --script=smb-enum-users
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-28 05:44 UTC
+Nmap scan report for target-1 (192.10.80.3)
+Host is up (0.000045s latency).
+
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+MAC Address: 02:42:C0:0A:50:03 (Unknown)
+
+Host script results:
+| smb-enum-users: 
+|   SAMBA-RECON\admin (RID: 1005)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\aisha (RID: 1004)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\elie (RID: 1002)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\emma (RID: 1003)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\john (RID: 1000)
+|     Full name:   
+|     Description: 
+|     Flags:       Normal user account
+|   SAMBA-RECON\shawn (RID: 1001)
+|     Full name:   
+|     Description: 
+|_    Flags:       Normal user account
+
+Nmap done: 1 IP address (1 host up) scanned in 0.45 seconds
+```
+
+Or, we can also use `enum4linux` tool to get the user list:
+
+```sh
+root@attackdefense:~# enum4linux -U 192.10.80.3
+...
+...
+...
+ ============================ 
+|    Users on 192.10.80.3    |
+ ============================ 
+index: 0x1 RID: 0x3e8 acb: 0x00000010 Account: john     Name:   Desc: 
+index: 0x2 RID: 0x3ea acb: 0x00000010 Account: elie     Name:   Desc: 
+index: 0x3 RID: 0x3ec acb: 0x00000010 Account: aisha    Name:   Desc: 
+index: 0x4 RID: 0x3e9 acb: 0x00000010 Account: shawn    Name:   Desc: 
+index: 0x5 RID: 0x3eb acb: 0x00000010 Account: emma     Name:   Desc: 
+index: 0x6 RID: 0x3ed acb: 0x00000010 Account: admin    Name:   Desc: 
+
+user:[john] rid:[0x3e8]
+user:[elie] rid:[0x3ea]
+user:[aisha] rid:[0x3ec]
+user:[shawn] rid:[0x3e9]
+user:[emma] rid:[0x3eb]
+user:[admin] rid:[0x3ed]
+enum4linux complete on Thu Dec 28 05:47:22 2023
+```
+
+Another way, we can use `rpcclient` to get the userlist:
+
+```sh
+root@attackdefense:~# rpcclient -U "" -N 192.10.80.3
+rpcclient $> enumdomusers
+user:[john] rid:[0x3e8]
+user:[elie] rid:[0x3ea]
+user:[aisha] rid:[0x3ec]
+user:[shawn] rid:[0x3e9]
+user:[emma] rid:[0x3eb]
+user:[admin] rid:[0x3ed]
+```
+
+To get full SID of admin, we can use this command of `rpcclient`:
+
+```sh
+rpcclient $> lookupnames admin
+admin S-1-5-21-4056189605-2085045094-1961111545-1005 (User: 1)
+```
+
+[^1]: 
