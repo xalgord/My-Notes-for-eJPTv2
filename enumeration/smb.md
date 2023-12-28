@@ -735,6 +735,27 @@ msf5 auxiliary(scanner/smb/pipe_auditor) > run
 
 Here we got a list of these named pipes.
 
+The last thing we can do is get the SID of different users:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# enum4linux <a data-footnote-ref href="#user-content-fn-6">-r</a> -u "admin" -p "password1" 192.9.143.3
+.
+.
+[+] Enumerating users using SID S-1-22-2 and logon username 'admin', password 'password1'
+S-1-22-2-1000 Unix Group\admins (Domain Group)
+S-1-22-2-1001 Unix Group\Maintainer (Domain Group)
+S-1-22-2-1002 Unix Group\Reserved (Domain Group)
+S-1-22-2-1003 Unix Group\Testing (Domain Group)
+[+] Enumerating users using SID S-1-22-1 and logon username 'admin', password 'password1'
+S-1-22-1-1000 Unix User\shawn (Local User)
+S-1-22-1-1001 Unix User\jane (Local User)
+S-1-22-1-1002 Unix User\nancy (Local User)
+S-1-22-1-1003 Unix User\admin (Local User)
+.
+.
+</code></pre>
+
+Here we got SIDs of multiple users.
+
 [^1]: 
 
 [^2]: login username
@@ -744,3 +765,5 @@ Here we got a list of these named pipes.
 [^4]: Target Host
 
 [^5]: Protocol
+
+[^6]: ensures that we are lookinbg for users
