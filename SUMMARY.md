@@ -10,3 +10,4 @@
   * [Firewall/IDS Evasion](footprinting-and-scanning/firewall-ids-evasion.md)
 * [ENUMERATION](enumeration/README.md)
   * [SMB](enumeration/smb.md)
+  * [FTP](enumeration/ftp.md)
