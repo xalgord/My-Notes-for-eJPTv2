@@ -388,4 +388,205 @@ rpcclient $> lookupnames admin
 admin S-1-5-21-4056189605-2085045094-1961111545-1005 (User: 1)
 ```
 
+## SMB: Samba 3
+
+To see the shares, we can use the following nmap script:
+
+```sh
+root@attackdefense:~# nmap 192.77.200.3 -p445 --script=smb-enum-shares
+Starting Nmap 7.70 ( https://nmap.org ) at 2023-12-28 06:01 UTC
+Nmap scan report for target-1 (192.77.200.3)
+Host is up (0.000040s latency).
+
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+MAC Address: 02:42:C0:4D:C8:03 (Unknown)
+
+Host script results:
+| smb-enum-shares: 
+|   account_used: guest
+|   \\192.77.200.3\IPC$: 
+|     Type: STYPE_IPC_HIDDEN
+|     Comment: IPC Service (samba.recon.lab)
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|     Current user access: READ/WRITE
+|   \\192.77.200.3\aisha: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: <unlimited>
+|     Path: C:\samba\aisha
+|     Anonymous access: <none>
+|     Current user access: <none>
+|   \\192.77.200.3\emma: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: <unlimited>
+|     Path: C:\samba\emma
+|     Anonymous access: <none>
+|     Current user access: <none>
+|   \\192.77.200.3\everyone: 
+|     Type: STYPE_DISKTREE
+....
+...
+..
+.
+```
+
+Also, we can use Metasploit for this:
+
+```sh
+msf5 > use auxiliary/scanner/smb/smb_enumshares 
+msf5 auxiliary(scanner/smb/smb_enumshares) > set RHOSTS 192.77.200.3
+RHOSTS => 192.77.200.3
+msf5 auxiliary(scanner/smb/smb_enumshares) > exploit
+
+[+] 192.77.200.3:139      - public - (DS) 
+[+] 192.77.200.3:139      - john - (DS) 
+[+] 192.77.200.3:139      - aisha - (DS) 
+[+] 192.77.200.3:139      - emma - (DS) 
+[+] 192.77.200.3:139      - everyone - (DS) 
+[+] 192.77.200.3:139      - IPC$ - (I) IPC Service (samba.recon.lab)
+[*] 192.77.200.3:         - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
+
+We can also use `enum4linux` for this:
+
+```sh
+....
+...
+..
+.
+ ========================================= 
+|    Share Enumeration on 192.77.200.3    |
+ ========================================= 
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        public          Disk      
+        john            Disk      
+        aisha           Disk      
+        emma            Disk      
+        everyone        Disk      
+        IPC$            IPC       IPC Service (samba.recon.lab)
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        RECONLABS            SAMBA-RECON
+
+[+] Attempting to map shares on 192.77.200.3
+//192.77.200.3/public   Mapping: OK, Listing: OK
+//192.77.200.3/john     Mapping: DENIED, Listing: N/A
+//192.77.200.3/aisha    Mapping: DENIED, Listing: N/A
+//192.77.200.3/emma     Mapping: DENIED, Listing: N/A
+//192.77.200.3/everyone Mapping: DENIED, Listing: N/A
+//192.77.200.3/IPC$     [E] Can't understand response:
+NT_STATUS_OBJECT_NAME_NOT_FOUND listing \*
+enum4linux complete on Thu Dec 28 06:08:16 2023
+```
+
+Same this we can do with smbclient:
+
+```sh
+root@attackdefense:~# smbclient -L 192.77.200.3 -N
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        public          Disk      
+        john            Disk      
+        aisha           Disk      
+        emma            Disk      
+        everyone        Disk      
+        IPC$            IPC       IPC Service (samba.recon.lab)
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        RECONLABS            SAMBA-RECON
+```
+
+We need to identify all the groups, which include users and shares, to determine who has different rights.
+
+```sh
+root@attackdefense:~# enum4linux -G 192.77.200.3
+...
+..
+.
+ ============================== 
+|    Groups on 192.77.200.3    |
+ ============================== 
+
+[+] Getting builtin groups:
+
+[+] Getting builtin group memberships:
+
+[+] Getting local groups:
+group:[Testing] rid:[0x3f0]
+
+[+] Getting local group memberships:
+
+[+] Getting domain groups:
+group:[Maintainer] rid:[0x3ee]
+group:[Reserved] rid:[0x3ef]
+```
+
+In this case, we have two different groups: Maintainer and Reserved.
+
+Again the same thing we can do with `rpcclient`:
+
+```sh
+root@attackdefense:~# rpcclient -U "" 192.77.200.3 -N
+rpcclient $> enumdomgroups
+group:[Maintainer] rid:[0x3ee]
+group:[Reserved] rid:[0x3ef]
+```
+
+To get information about printer, we can use the following command:
+
+```
+root@attackdefense:~# enum4linux -i 192.77.200.3
+.
+.
+.
+ ============================================= 
+|    Getting printer info for 192.77.200.3    |
+ ============================================= 
+No printers returned.
+```
+
+In this case, no printers are found.
+
+To connect with a share, as in my case I saw that the public was accessible. So we can use the following command to connect with the public:
+
+```
+root@attackdefense:~# smbclient //192.77.200.3/public -N
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Thu Dec 28 06:01:18 2023
+  ..                                  D        0  Tue Nov 27 13:36:13 2018
+  secret                              D        0  Tue Nov 27 13:36:13 2018
+  dev                                 D        0  Tue Nov 27 13:36:13 2018
+
+                1981084628 blocks of size 1024. 202054372 blocks available
+```
+
+I found out that most of the commands in this are standard Linux commands. But some of the commands may not work in this scenario. For example, to read a file, we can't use `cat filename` a command. I used get command to download the file to my local system like this:
+
+```
+smb: \secret\> get flag
+getting file \secret\flag of size 33 as flag (32.2 KiloBytes/sec) (average 32.2 KiloBytes/sec)
+```
+
 [^1]: 
