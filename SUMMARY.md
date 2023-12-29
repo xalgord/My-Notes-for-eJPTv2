@@ -13,3 +13,4 @@
   * [FTP](enumeration/ftp.md)
   * [SSH](enumeration/ssh.md)
   * [HTTP](enumeration/http.md)
+  * [MySQL](enumeration/mysql.md)
