@@ -17,3 +17,8 @@
   * [SSH](assessment-methodologies/enumeration/ssh.md)
   * [HTTP](assessment-methodologies/enumeration/http.md)
   * [MySQL](assessment-methodologies/enumeration/mysql.md)
+
+## HOST & NETWORK PENETRATION TESTING
+
+* [EXPLOITING WINDOWS VULNERABILITIES](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/README.md)
+  * [Exploiting Microsoft IIS WebDAV](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-microsoft-iis-webdav.md)
