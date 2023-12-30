@@ -22,3 +22,4 @@
 
 * [EXPLOITING WINDOWS VULNERABILITIES](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/README.md)
   * [Exploiting Microsoft IIS WebDAV](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-microsoft-iis-webdav.md)
+  * [Exploiting WebDAV with Metasploit](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-webdav-with-metasploit.md)
