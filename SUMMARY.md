@@ -25,3 +25,4 @@
   * [Exploiting WebDAV with Metasploit](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-webdav-with-metasploit.md)
   * [Exploiting SMB with PsExec](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-smb-with-psexec.md)
   * [Exploiting RDP](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-rdp.md)
+  * [Exploiting WinRM](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-winrm.md)
