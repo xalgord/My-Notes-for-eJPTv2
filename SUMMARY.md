@@ -26,3 +26,5 @@
   * [Exploiting SMB with PsExec](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-smb-with-psexec.md)
   * [Exploiting RDP](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-rdp.md)
   * [Exploiting WinRM](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-winrm.md)
+* [WINDOWS PRIVILAGE ESCALATION](host-and-network-penetration-testing/windows-privilage-escalation/README.md)
+  * [Bypassing UAC with UACMe](host-and-network-penetration-testing/windows-privilage-escalation/bypassing-uac-with-uacme.md)
