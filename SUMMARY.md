@@ -28,3 +28,4 @@
   * [Exploiting WinRM](host-and-network-penetration-testing/exploiting-windows-vulnerabilities/exploiting-winrm.md)
 * [WINDOWS PRIVILAGE ESCALATION](host-and-network-penetration-testing/windows-privilage-escalation/README.md)
   * [Bypassing UAC with UACMe](host-and-network-penetration-testing/windows-privilage-escalation/bypassing-uac-with-uacme.md)
+  * [Access Token Impersonation](host-and-network-penetration-testing/windows-privilage-escalation/access-token-impersonation.md)
