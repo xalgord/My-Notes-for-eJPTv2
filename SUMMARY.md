@@ -31,3 +31,4 @@
   * [Access Token Impersonation](host-and-network-penetration-testing/windows-privilage-escalation/access-token-impersonation.md)
 * [Windows Credential Dumping](host-and-network-penetration-testing/windows-credential-dumping/README.md)
   * [Searching for passwords in Windows configuration files](host-and-network-penetration-testing/windows-credential-dumping/searching-for-passwords-in-windows-configuration-files.md)
+  * [Dumping Hashes with Mimikatz](host-and-network-penetration-testing/windows-credential-dumping/dumping-hashes-with-mimikatz.md)
