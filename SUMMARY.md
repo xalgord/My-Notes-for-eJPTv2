@@ -34,3 +34,4 @@
   * [Dumping Hashes with Mimikatz](host-and-network-penetration-testing/windows-credential-dumping/dumping-hashes-with-mimikatz.md)
 * [EXPLOITING LINUX VULNERABILITIES](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/README.md)
   * [Shellshock](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/shellshock.md)
+  * [SSH](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/ssh.md)
