@@ -35,3 +35,4 @@
 * [EXPLOITING LINUX VULNERABILITIES](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/README.md)
   * [Shellshock](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/shellshock.md)
   * [SSH](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/ssh.md)
+* [EXPLOITING MISCONFIGURED CRON JOBS](host-and-network-penetration-testing/exploiting-misconfigured-cron-jobs.md)
