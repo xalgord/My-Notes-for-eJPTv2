@@ -38,3 +38,4 @@
 * [LINUX PRIVILEGE ESCALATION](host-and-network-penetration-testing/linux-privilege-escalation/README.md)
   * [Exploiting Misconfigured Cron Jobs](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-misconfigured-cron-jobs.md)
   * [Exploiting SUID Binaries](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-suid-binaries.md)
+* [LINUX CREDENTIAL DUMPING](host-and-network-penetration-testing/linux-credential-dumping.md)
