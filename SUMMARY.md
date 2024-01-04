@@ -35,4 +35,6 @@
 * [EXPLOITING LINUX VULNERABILITIES](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/README.md)
   * [Shellshock](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/shellshock.md)
   * [SSH](host-and-network-penetration-testing/exploiting-linux-vulnerabilities/ssh.md)
-* [EXPLOITING MISCONFIGURED CRON JOBS](host-and-network-penetration-testing/exploiting-misconfigured-cron-jobs.md)
+* [LINUX PRIVILEGE ESCALATION](host-and-network-penetration-testing/linux-privilege-escalation/README.md)
+  * [Exploiting Misconfigured Cron Jobs](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-misconfigured-cron-jobs.md)
+  * [Exploiting SUID Binaries](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-suid-binaries.md)
