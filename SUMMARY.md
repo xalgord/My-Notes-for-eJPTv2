@@ -39,3 +39,16 @@
   * [Exploiting Misconfigured Cron Jobs](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-misconfigured-cron-jobs.md)
   * [Exploiting SUID Binaries](host-and-network-penetration-testing/linux-privilege-escalation/exploiting-suid-binaries.md)
 * [LINUX CREDENTIAL DUMPING](host-and-network-penetration-testing/linux-credential-dumping.md)
+
+## Host & Network Penetration Testing: The Metasploit Framework (MSF)
+
+* [Vulnerability Scanning](host-and-network-penetration-testing-the-metasploit-framework-msf/vulnerability-scanning/README.md)
+  * [WMAP](host-and-network-penetration-testing-the-metasploit-framework-msf/vulnerability-scanning/wmap.md)
+* [CLIENT SIDE ATTACK](host-and-network-penetration-testing-the-metasploit-framework-msf/client-side-attack/README.md)
+  * [generating payload with msfvenom](host-and-network-penetration-testing-the-metasploit-framework-msf/client-side-attack/generating-payload-with-msfvenom.md)
+* [Exploitation](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/README.md)
+  * [Windows Exploitation](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-exploitation/README.md)
+    * [Exploiting a vulnerable http file server](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-exploitation/exploiting-a-vulnerable-http-file-server.md)
+  * [Windows Post Exploitation](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/README.md)
+    * [Windows Post Exploitation Modules](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/windows-post-exploitation-modules.md)
+    * [UAC Bypass](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/uac-bypass.md)
