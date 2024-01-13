@@ -53,3 +53,7 @@
     * [Windows Post Exploitation Modules](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/windows-post-exploitation-modules.md)
     * [UAC Bypass](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/uac-bypass.md)
     * [Pivoting](host-and-network-penetration-testing-the-metasploit-framework-msf/exploitation/windows-post-exploitation/pivoting.md)
+
+## Host & Network Penetration Testing: Exploitation
+
+* [Bind Shells](host-and-network-penetration-testing-exploitation/bind-shells.md)
