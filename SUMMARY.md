@@ -60,3 +60,6 @@
 * [Windows](host-and-network-penetration-testing-exploitation/windows/README.md)
   * [Windows Blackbox Penetration test](host-and-network-penetration-testing-exploitation/windows/windows-blackbox-penetration-test.md)
   * [Targeting Microsoft IIS FTP](host-and-network-penetration-testing-exploitation/windows/targeting-microsoft-iis-ftp.md)
+  * [Targeting OpenSSH](host-and-network-penetration-testing-exploitation/windows/targeting-openssh.md)
+  * [Targeting SMB](host-and-network-penetration-testing-exploitation/windows/targeting-smb.md)
+  * [Targeting MySQL Database Server](host-and-network-penetration-testing-exploitation/windows/targeting-mysql-database-server.md)
