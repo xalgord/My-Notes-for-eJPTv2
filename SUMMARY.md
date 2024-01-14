@@ -57,3 +57,5 @@
 ## Host & Network Penetration Testing: Exploitation
 
 * [Bind Shells](host-and-network-penetration-testing-exploitation/bind-shells.md)
+* [Windows](host-and-network-penetration-testing-exploitation/windows/README.md)
+  * [Windows Blackbox Penetration test](host-and-network-penetration-testing-exploitation/windows/windows-blackbox-penetration-test.md)
