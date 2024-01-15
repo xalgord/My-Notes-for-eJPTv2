@@ -66,3 +66,5 @@
 * [Linux](host-and-network-penetration-testing-exploitation/linux/README.md)
   * [Port Scanning and Enumeration: Black Box](host-and-network-penetration-testing-exploitation/linux/port-scanning-and-enumeration-black-box.md)
   * [Targeting vsFTPd](host-and-network-penetration-testing-exploitation/linux/targeting-vsftpd.md)
+  * [Targeting PHP](host-and-network-penetration-testing-exploitation/linux/targeting-php.md)
+  * [Targeting SAMBA](host-and-network-penetration-testing-exploitation/linux/targeting-samba.md)
