@@ -63,3 +63,6 @@
   * [Targeting OpenSSH](host-and-network-penetration-testing-exploitation/windows/targeting-openssh.md)
   * [Targeting SMB](host-and-network-penetration-testing-exploitation/windows/targeting-smb.md)
   * [Targeting MySQL Database Server](host-and-network-penetration-testing-exploitation/windows/targeting-mysql-database-server.md)
+* [Linux](host-and-network-penetration-testing-exploitation/linux/README.md)
+  * [Port Scanning and Enumeration: Black Box](host-and-network-penetration-testing-exploitation/linux/port-scanning-and-enumeration-black-box.md)
+  * [Targeting vsFTPd](host-and-network-penetration-testing-exploitation/linux/targeting-vsftpd.md)
