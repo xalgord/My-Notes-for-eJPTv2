@@ -79,3 +79,5 @@
   * [Enumerating System Information](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-system-information.md)
   * [Enumerating Users and Groups](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-users-and-groups.md)
   * [Enumerating Network Information](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-network-information.md)
+  * [Enumerating Processes and Cron Jobs](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-processes-and-cron-jobs.md)
+  * [Automating Linux Local Enumeration](host-and-network-penetration-testing-post-exploitation/linux-enumeration/automating-linux-local-enumeration.md)
