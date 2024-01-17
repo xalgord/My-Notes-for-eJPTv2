@@ -75,3 +75,5 @@
   * [Enumerating Network Information](host-and-network-penetration-testing-post-exploitation/windows-enumeration/enumerating-network-information.md)
   * [Enumerating Processes and Services](host-and-network-penetration-testing-post-exploitation/windows-enumeration/enumerating-processes-and-services.md)
   * [Automating Windows Local Enumeratio](host-and-network-penetration-testing-post-exploitation/windows-enumeration/automating-windows-local-enumeratio.md)
+* [LINUX ENUMERATION](host-and-network-penetration-testing-post-exploitation/linux-enumeration/README.md)
+  * [Enumerating System Information](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-system-information.md)
