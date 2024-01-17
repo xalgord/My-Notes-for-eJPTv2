@@ -68,3 +68,10 @@
   * [Targeting vsFTPd](host-and-network-penetration-testing-exploitation/linux/targeting-vsftpd.md)
   * [Targeting PHP](host-and-network-penetration-testing-exploitation/linux/targeting-php.md)
   * [Targeting SAMBA](host-and-network-penetration-testing-exploitation/linux/targeting-samba.md)
+
+## Host & Network Penetration Testing: Post-Exploitation
+
+* [WINDOWS ENUMERATION](host-and-network-penetration-testing-post-exploitation/windows-enumeration/README.md)
+  * [Enumerating Network Information](host-and-network-penetration-testing-post-exploitation/windows-enumeration/enumerating-network-information.md)
+  * [Enumerating Processes and Services](host-and-network-penetration-testing-post-exploitation/windows-enumeration/enumerating-processes-and-services.md)
+  * [Automating Windows Local Enumeratio](host-and-network-penetration-testing-post-exploitation/windows-enumeration/automating-windows-local-enumeratio.md)
