@@ -81,3 +81,8 @@
   * [Enumerating Network Information](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-network-information.md)
   * [Enumerating Processes and Cron Jobs](host-and-network-penetration-testing-post-exploitation/linux-enumeration/enumerating-processes-and-cron-jobs.md)
   * [Automating Linux Local Enumeration](host-and-network-penetration-testing-post-exploitation/linux-enumeration/automating-linux-local-enumeration.md)
+* [Persistence](host-and-network-penetration-testing-post-exploitation/persistence/README.md)
+  * [Windows](host-and-network-penetration-testing-post-exploitation/persistence/windows/README.md)
+    * [Persistence via Services](host-and-network-penetration-testing-post-exploitation/persistence/windows/persistence-via-services.md)
+  * [Linux](host-and-network-penetration-testing-post-exploitation/persistence/linux/README.md)
+    * [Persistence via SSH keys](host-and-network-penetration-testing-post-exploitation/persistence/linux/persistence-via-ssh-keys.md)
