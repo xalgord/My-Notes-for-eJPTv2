@@ -88,3 +88,5 @@
     * [Persistence via SSH keys](host-and-network-penetration-testing-post-exploitation/persistence/linux/persistence-via-ssh-keys.md)
 * [Dumping and Cracking](host-and-network-penetration-testing-post-exploitation/dumping-and-cracking/README.md)
   * [Dumping and Cracking NTLM Hashes - Windows](host-and-network-penetration-testing-post-exploitation/dumping-and-cracking/dumping-and-cracking-ntlm-hashes-windows.md)
+  * [Dumping and Cracking Passwords - Linux](host-and-network-penetration-testing-post-exploitation/dumping-and-cracking/dumping-and-cracking-passwords-linux.md)
+* [Pivoting](host-and-network-penetration-testing-post-exploitation/pivoting.md)
